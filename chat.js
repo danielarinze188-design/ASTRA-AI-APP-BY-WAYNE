@@ -1,4 +1,4 @@
-import { getUser, retrieve, getMem, memText } from "./_lib.js";
+import { getUser, retrieve, getMem, memText } from "./lib.js";
 
 // Chat endpoint: keeps GEMINI_API_KEY on the server and streams replies.
 export default async function handler(req, res) {

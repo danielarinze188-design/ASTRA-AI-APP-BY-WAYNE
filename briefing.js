@@ -1,4 +1,4 @@
-import { getUser, getMem, setMem, makeBrief } from "./_lib.js";
+import { getUser, getMem, setMem, makeBrief } from "./lib.js";
 
 export default async function handler(req, res) {
   const user = getUser(req);

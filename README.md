@@ -5,7 +5,7 @@ Express server serving the app (`public/`) and the API (`api/`). Google or name/
 ## Deploy on Render (about 10 minutes)
 1. **Upstash (free database):** sign up at upstash.com → Create Database (Redis, free). On its page copy the **REST URL** and **REST Token**.
 2. **GitHub:** upload this folder to a new GitHub repo (don't upload `astra-secrets.txt`).
-3. **Render:** sign up at render.com → New → **Blueprint** → pick the repo. Render reads `render.yaml` and asks for the values below.
+3. **Render:** sign up at render.com → New → **Web Service** (or **Blueprint**) → pick the repo. Build command `npm install` (or `yarn`), start command `npm start`. Add these environment variables:
    - `GEMINI_API_KEY` – from aistudio.google.com/apikey
    - `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` – from step 1
    - `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, `VAPID_SUBJECT`, `CRON_SECRET` – from `astra-secrets.txt` (set the subject to `mailto:your@email`)
@@ -32,4 +32,4 @@ Open pwabuilder.com, paste your Render URL, Package for Stores → Android. Turn
 - No ads
 
 ## Files
-`server.js` (web server) · `public/` (app, service worker, icons) · `api/` (auth, chat, docs, memory, briefing, push, cron) · `render.yaml`
+All files sit in one flat folder (no sub-folders), so they upload easily from a phone: `server.js`, `lib.js`, `auth.js`, `chat.js`, `docs.js`, `memory.js`, `briefing.js`, `push.js`, `cron.js`, `index.html`, `sw.js`, `manifest.json`, `logo.png`, `icon-*.png`, `package.json`, `render.yaml`.

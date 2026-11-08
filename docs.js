@@ -1,5 +1,5 @@
 import crypto from "crypto";
-import { getUser, redis, redisPipe, embed, chunkText, parseDocs } from "./_lib.js";
+import { getUser, redis, redisPipe, embed, chunkText, parseDocs } from "./lib.js";
 
 const MAX_DOCS = 20, MAX_CHUNKS = 800, MAX_CHARS = 300000;
 

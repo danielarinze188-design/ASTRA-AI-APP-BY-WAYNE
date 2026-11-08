@@ -1,4 +1,4 @@
-import { signSession, getUser, setCookie, redis, hashPw, checkPw } from "./_lib.js";
+import { signSession, getUser, setCookie, redis, hashPw, checkPw } from "./lib.js";
 import crypto from "crypto";
 
 export default async function handler(req, res) {

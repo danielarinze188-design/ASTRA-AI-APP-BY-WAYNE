@@ -1,5 +1,5 @@
 import webpush from "web-push";
-import { redis, getMem, setMem, makeBrief, localIso } from "./_lib.js";
+import { redis, getMem, setMem, makeBrief, localIso } from "./lib.js";
 
 // Call this every minute (see README). Sends due reminders and the morning briefing as push notifications.
 export default async function handler(req, res) {

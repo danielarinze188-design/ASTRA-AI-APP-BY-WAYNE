@@ -1,16 +1,17 @@
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
-import auth from "./api/auth.js";
-import chat from "./api/chat.js";
-import docs from "./api/docs.js";
-import memory from "./api/memory.js";
-import briefing from "./api/briefing.js";
-import push from "./api/push.js";
-import cron from "./api/cron.js";
+import auth from "./auth.js";
+import chat from "./chat.js";
+import docs from "./docs.js";
+import memory from "./memory.js";
+import briefing from "./briefing.js";
+import push from "./push.js";
+import cron from "./cron.js";
 
 const app = express();
-const pub = path.join(path.dirname(fileURLToPath(import.meta.url)), "public");
+const root = path.dirname(fileURLToPath(import.meta.url));
+const FILES = new Set(["index.html", "sw.js", "manifest.json", "logo.png", "icon-192.png", "icon-512.png", "icon-maskable-512.png"]);
 
 app.set("trust proxy", 1);
 app.use(express.json({ limit: "6mb" }));
@@ -30,11 +31,14 @@ app.all("/api/briefing", wrap(briefing));
 app.all("/api/push", wrap(push));
 app.all("/api/cron", wrap(cron));
 
-app.use(
-  express.static(pub, {
-    setHeaders: (res, file) => { if (file.endsWith("sw.js")) res.setHeader("Cache-Control", "no-cache"); },
-  })
-);
+// Only these files are public; server code is never served.
+app.get("/", (req, res) => res.sendFile(path.join(root, "index.html")));
+app.get("/:file", (req, res, next) => {
+  if (!FILES.has(req.params.file)) return next();
+  if (req.params.file === "sw.js") res.setHeader("Cache-Control", "no-cache");
+  res.sendFile(path.join(root, req.params.file));
+});
+app.use((req, res, next) => (req.path.startsWith("/api/") ? next() : res.status(404).send("Not found")));
 
 // JSON errors (e.g. malformed or oversized request bodies)
 app.use((err, req, res, next) => res.status(err.status || 500).json({ error: err.message || "Server error" }));

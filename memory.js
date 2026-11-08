@@ -1,5 +1,5 @@
 import crypto from "crypto";
-import { getUser, getMem, setMem, redis, redisPipe, parseDocs } from "./_lib.js";
+import { getUser, getMem, setMem, redis, redisPipe, parseDocs } from "./lib.js";
 
 const rid = () => crypto.randomUUID().slice(0, 8);
 const clip = (s, n) => String(s || "").trim().slice(0, n);

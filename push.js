@@ -1,5 +1,5 @@
 import crypto from "crypto";
-import { getUser, redis } from "./_lib.js";
+import { getUser, redis } from "./lib.js";
 
 export default async function handler(req, res) {
   if (req.method === "GET") return res.json({ key: process.env.VAPID_PUBLIC_KEY || "" });
